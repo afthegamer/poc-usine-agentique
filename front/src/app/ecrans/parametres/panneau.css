@@ -1,0 +1,326 @@
+.panneau {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.panneau.autre {
+  gap: 28px;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.colonnes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 40px;
+}
+
+.colonne,
+.cle {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.colonne,
+.etape-autre {
+  padding-top: 14px;
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-top-color: var(--texte);
+}
+
+.entete {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.modeles {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px 0 0;
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-top-color: var(--texte);
+}
+
+.modeles.inactif {
+  border-top-color: var(--barre-a-venir);
+}
+
+.etape-autre {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+legend {
+  float: left;
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.etape-autre legend {
+  margin-bottom: 14px;
+}
+
+.etape-autre.etape-modele {
+  gap: 10px;
+}
+
+.modeles-ollama legend,
+.modeles-ollama .phrase {
+  margin-bottom: 4px;
+}
+
+.modeles-ollama .phrase {
+  line-height: 1.5;
+}
+
+.inactif legend,
+.inactif .nom {
+  color: var(--texte-secondaire);
+}
+
+.etape {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.petite {
+  font-size: 13px;
+  color: var(--texte-secondaire);
+}
+
+input[type='password'],
+input[type='url'] {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 46px;
+  padding: 8px 0;
+  border: none;
+  border-bottom-width: 1.5px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--texte);
+  background: transparent;
+  color: var(--texte);
+  font: inherit;
+  font-size: 17px;
+}
+
+input[type='password']:focus,
+input[type='url']:focus {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--accent);
+}
+
+input[aria-invalid='true'],
+input[aria-invalid='true']:focus {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--erreur);
+}
+
+.actions,
+.cle-autre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 24px;
+}
+
+.cle-autre {
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.champ-cle {
+  flex: 1 1 320px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cle > button,
+.actions {
+  align-self: flex-start;
+}
+
+.liens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+}
+
+.colonne > [usine-action-soulignee] {
+  align-self: flex-start;
+}
+
+.aide,
+.erreur {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.aide {
+  color: var(--texte-secondaire);
+}
+
+.erreur {
+  color: var(--erreur);
+}
+
+.phrase {
+  color: var(--texte-secondaire);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.enregistree {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.absent {
+  color: var(--attente);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.modele {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--filet);
+  border-radius: 8px;
+  background-color: var(--blanc);
+  cursor: pointer;
+}
+
+.modele.choisie {
+  border-width: 2px;
+  border-color: var(--accent);
+}
+
+.inactif .modele {
+  background-color: var(--bloc);
+  cursor: default;
+}
+
+.modele input,
+.pilule input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--accent);
+}
+
+.textes {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nom {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.description,
+.prepare {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.description {
+  color: var(--texte-secondaire);
+}
+
+.prepare {
+  color: var(--accent);
+}
+
+.pilules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pilule {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  box-sizing: border-box;
+  padding: 0 18px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--filet);
+  border-radius: 23px;
+  background-color: var(--blanc);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.pilule.choisie {
+  border-width: 2px;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.pilule input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+select {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-height: 46px;
+  padding: 0 12px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--filet);
+  border-radius: 6px;
+  background-color: var(--blanc);
+  color: var(--texte);
+  font: inherit;
+  font-size: 16px;
+}
+
+select:disabled {
+  background-color: var(--bloc);
+  color: var(--texte-secondaire);
+}

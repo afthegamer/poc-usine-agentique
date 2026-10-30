@@ -1,0 +1,39 @@
+:host {
+  --ecart-message: 14px;
+}
+
+.courante {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 0 4px;
+  border-top-width: 2px;
+  border-top-style: solid;
+  border-top-color: var(--texte);
+}
+
+h2 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  line-height: 1.35;
+}
+
+.numero {
+  color: var(--texte-secondaire);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 22px;
+  padding-top: 4px;
+}

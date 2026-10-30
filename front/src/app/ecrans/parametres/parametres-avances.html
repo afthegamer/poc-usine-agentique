@@ -1,0 +1,117 @@
+<usine-cadre>
+  <main>
+    <div class="page">
+      @if (general() !== null) {
+        <a class="retour" routerLink="/parametres">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+          {{ textes.retour }}
+        </a>
+      }
+      <div class="titre">
+        <h1 #titre usineCibleFocus="titre">{{ textes.titre }}</h1>
+        @if (general(); as general) {
+          <p class="phrase">{{ textes.phrase(general) }}</p>
+        } @else if (etat()) {
+          <p class="phrase">
+            {{ textes.sansChoix }} <a routerLink="/parametres">{{ textes.lienParametres }}</a
+            >.
+          </p>
+        } @else if (echec()) {
+          <p class="erreur" role="alert">{{ libelles.parametres.echec }}</p>
+          <button
+            type="button"
+            usine-action-soulignee
+            [disabled]="chargement()"
+            [attr.aria-busy]="chargement() || null"
+            [usineFocusApresAppel]="chargement()"
+            (click)="charger()"
+          >
+            {{ libelles.parametres.reessayer }}
+          </button>
+        }
+      </div>
+
+      @if (general(); as general) {
+        <div class="cartes">
+          @for (role of roles; track role) {
+            <div class="carte" [class.personnalisee]="personnalise(role)">
+              <div class="entete">
+                <div class="ligne">
+                  <label class="nom" [for]="'role-' + role">{{ textes.roles[role].nom }}</label>
+                  @if (personnalise(role)) {
+                    <span class="mention">{{ textes.personnalise }}</span>
+                  }
+                </div>
+                <span class="description">{{ textes.roles[role].description }}</span>
+              </div>
+              <select
+                #liste
+                [id]="'role-' + role"
+                [disabled]="enCours() !== null"
+                [attr.aria-busy]="enCours()?.cible === role || null"
+                [usineFocusApresAppel]="enCours()?.cible === role"
+                (change)="changer(role, liste.value)"
+              >
+                <option value="" [selected]="valeur(role) === ''">
+                  {{ textes.commeGeneral(general) }}
+                </option>
+                @for (groupe of groupes(); track groupe.ia) {
+                  @if (groupe.connectee) {
+                    <optgroup [label]="groupe.libelle">
+                      @for (option of groupe.options; track option.valeur) {
+                        <option [value]="option.valeur" [selected]="option.valeur === valeur(role)">
+                          {{ option.libelle }}
+                        </option>
+                      }
+                    </optgroup>
+                  } @else {
+                    <optgroup disabled [label]="groupe.libelle">
+                      <option>{{ textes.ajouteCle }}</option>
+                    </optgroup>
+                  }
+                }
+              </select>
+              @if (erreur()?.cible === role) {
+                <p class="erreur" role="alert">{{ erreur()?.texte }}</p>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="pied">
+          <p class="phrase-pied">
+            {{ textes.pied }} <a routerLink="/parametres">{{ textes.lienParametres }}</a
+            >.
+          </p>
+          @if (regle()) {
+            <button
+              type="button"
+              usine-action-soulignee
+              [disabled]="enCours() !== null"
+              [attr.aria-busy]="enCours()?.cible === 'tout' || null"
+              [usineFocusApresAppel]="enCours()?.cible === 'tout'"
+              (click)="toutRemettre()"
+            >
+              {{ textes.toutRemettre }}
+            </button>
+          }
+          @if (erreur()?.cible === 'tout') {
+            <p class="erreur" role="alert">{{ erreur()?.texte }}</p>
+          }
+        </div>
+      }
+    </div>
+  </main>
+</usine-cadre>

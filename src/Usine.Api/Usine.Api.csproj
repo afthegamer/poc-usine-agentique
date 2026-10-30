@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>Usine.Api</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Usine.Core\Usine.Core.csproj" />
+    <ProjectReference Include="..\Usine.Mcp\Usine.Mcp.csproj" />
+  </ItemGroup>
+
+</Project>

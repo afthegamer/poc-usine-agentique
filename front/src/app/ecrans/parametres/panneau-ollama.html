@@ -1,0 +1,109 @@
+<section class="panneau" aria-labelledby="titre-panneau">
+  <h2 id="titre-panneau">{{ libelles.parametres.ias.ollama.nom }}</h2>
+  <div class="colonnes">
+    <div class="colonne">
+      <h3>{{ libelles.parametres.ollama.surCePoste }}</h3>
+      @if (ia().dto.connectee) {
+        <p class="enregistree">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M20 6 9 17l-5-5" />
+          </svg>
+          {{ libelles.parametres.ollama.repond }}
+        </p>
+        <p class="phrase">{{ libelles.parametres.ollama.sansCle }}</p>
+      } @else {
+        <p class="absent">{{ libelles.parametres.ollama.neRepondPas }}</p>
+        <p class="phrase">{{ libelles.parametres.ollama.lancer }}</p>
+      }
+      @if (changement()) {
+        <form class="cle" novalidate (submit)="$event.preventDefault(); enregistrer(champ)">
+          <label class="petite" for="adresse-ollama">{{
+            libelles.parametres.ollama.adresse
+          }}</label>
+          <input
+            #champ
+            id="adresse-ollama"
+            type="url"
+            autocomplete="off"
+            spellcheck="false"
+            [value]="ia().dto.adresse ?? ''"
+            [attr.aria-invalid]="erreurAdresse() ? 'true' : null"
+            [attr.aria-describedby]="erreurAdresse() ? 'erreur-adresse' : null"
+          />
+          @if (erreurAdresse()) {
+            <p id="erreur-adresse" class="erreur" role="alert">{{ erreurAdresse() }}</p>
+          }
+          <div class="actions">
+            <button
+              type="submit"
+              usine-bouton-plein
+              [disabled]="envoi()"
+              [attr.aria-busy]="envoi() || null"
+            >
+              {{ libelles.parametres.ollama.enregistrerAdresse }}
+            </button>
+            <button type="button" usine-action-soulignee (click)="fermerChangement()">
+              {{ libelles.parametres.annuler }}
+            </button>
+          </div>
+        </form>
+      } @else {
+        <button #changer type="button" usine-action-soulignee (click)="ouvrirChangement()">
+          {{ libelles.parametres.ollama.changerAdresse }}
+        </button>
+      }
+    </div>
+
+    @if (ia().dto.connectee) {
+      <div class="colonne-modele">
+        <fieldset
+          class="modeles modeles-ollama"
+          [disabled]="choix.enCours() !== null"
+          [attr.aria-busy]="choix.enCours() !== null || null"
+        >
+          <legend>{{ libelles.parametres.modele }}</legend>
+          <p class="phrase">{{ libelles.parametres.ollama.installes }}</p>
+          @for (modele of ia().dto.modeles; track modele.id) {
+            <label class="modele" [class.choisie]="modele.id === choix.choisi()">
+              <input
+                type="radio"
+                name="modele-ollama"
+                [checked]="modele.id === choix.choisi()"
+                [usineFocusApresAppel]="choix.enCours() === modele.id"
+                (change)="choix.choisir(modele.id)"
+                (click)="preparerDeNouveau(modele)"
+              />
+              <span class="textes">
+                <span class="nom">{{ modele.nom }}</span>
+                @if (choix.enCours() === modele.id && modele.prepare === false) {
+                  <span class="prepare">{{ libelles.parametres.ollama.preparation }}</span>
+                } @else if (modele.prepare) {
+                  <span class="prepare">{{ libelles.parametres.ollama.prepare }}</span>
+                }
+              </span>
+            </label>
+          } @empty {
+            <p class="phrase">{{ libelles.parametres.ollama.aucunModele }}</p>
+          }
+          @if (ia().dto.modeles.length > 0) {
+            <p class="aide">{{ libelles.parametres.ollama.premiereFois }}</p>
+          }
+        </fieldset>
+        @if (choix.erreur()) {
+          <p class="erreur" role="alert">{{ choix.erreur() }}</p>
+        }
+      </div>
+    }
+  </div>
+  <ng-content />
+</section>

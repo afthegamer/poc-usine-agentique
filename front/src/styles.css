@@ -1,0 +1,63 @@
+@import '@fontsource/schibsted-grotesk/400.css';
+@import '@fontsource/schibsted-grotesk/400-italic.css';
+@import '@fontsource/schibsted-grotesk/500.css';
+@import '@fontsource/schibsted-grotesk/600.css';
+@import '@fontsource/schibsted-grotesk/700.css';
+
+:root {
+  --fond: #fafaf8;
+  --texte: #161616;
+  --texte-secondaire: #5e5e5a;
+  --texte-neutre: #3b3b38;
+  --accent: #1f5c45;
+  --accent-survol: #123a2b;
+  --accent-pale: #eef3ef;
+  --attente: #8a4b08;
+  --erreur: #a3271b;
+  --filet: #e4e3de;
+  --barre-a-venir: #d9d8d2;
+  --texte-desactive: #a9a8a2;
+  --bloc: #f0efea;
+  --blanc: #ffffff;
+}
+
+html:has(usine-zone-saisie) {
+  scroll-padding-bottom: 250px;
+}
+
+body {
+  margin: 0;
+  background-color: var(--fond);
+  color: var(--texte);
+  font-family: 'Schibsted Grotesk', system-ui, sans-serif;
+}
+
+h1,
+h2,
+p,
+ol,
+ul {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--accent-survol);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.masque {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

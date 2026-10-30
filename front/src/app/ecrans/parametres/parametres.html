@@ -1,0 +1,176 @@
+<usine-cadre>
+  <main>
+    <div class="page">
+      <div class="titre">
+        <h1 #titre usineCibleFocus="titre">{{ libelles.parametres.titre }}</h1>
+        @if (etat(); as etat) {
+          <p class="phrase">
+            {{ etat.pret ? libelles.parametres.phrasePrete : libelles.parametres.phrase }}
+          </p>
+        } @else if (echec()) {
+          <p class="erreur" role="alert">{{ libelles.parametres.echec }}</p>
+          <button
+            type="button"
+            usine-action-soulignee
+            [disabled]="chargement()"
+            [attr.aria-busy]="chargement() || null"
+            [usineFocusApresAppel]="chargement()"
+            (click)="charger()"
+          >
+            {{ libelles.parametres.reessayer }}
+          </button>
+        }
+      </div>
+
+      @if (etat(); as etat) {
+        @if (bandeau(); as bandeau) {
+          <div class="encadre" role="status">
+            <span class="textes">
+              <span class="connecte">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                {{ libelles.parametres.connecte(bandeau.nom) }}
+              </span>
+              <span class="phrase-encadre">{{
+                libelles.parametres.utilisera(bandeau.modele)
+              }}</span>
+            </span>
+            <a usine-bouton-plein routerLink="/">{{ libelles.parametres.premierProjet }}</a>
+          </div>
+        }
+
+        <fieldset class="ias">
+          <legend #legende tabindex="-1">{{ libelles.parametres.tonIa }}</legend>
+          <div class="cartes">
+            @for (ia of ias(); track ia.id) {
+              <label class="carte" [class.choisie]="ia.id === selection()">
+                <input
+                  type="radio"
+                  name="ia"
+                  [checked]="ia.id === selection()"
+                  (change)="selectionner(ia.id)"
+                />
+                <span class="nom">{{ libelles.parametres.ias[ia.id].nom }}</span>
+                <span class="description">{{ libelles.parametres.ias[ia.id].description }}</span>
+                <span class="etat" [class.connectee]="ia.dto.connectee">
+                  @if (ia.dto.connectee) {
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                  }
+                  {{ etatCarte(ia) }}
+                </span>
+              </label>
+            }
+          </div>
+        </fieldset>
+
+        @if (selection() === null) {
+          <p class="phrase-courte">{{ libelles.parametres.cleCreee }}</p>
+        }
+
+        @if (iaChoisie(); as ia) {
+          <div class="panneau">
+            @switch (ia.id) {
+              @case ('gemini') {
+                <usine-panneau-cle
+                  [ia]="ia"
+                  [retraitEnCours]="retraitEnCours()"
+                  (retirer)="demanderRetrait(ia)"
+                >
+                  @if (ia.dto.connectee) {
+                    <p class="phrase-courte">{{ libelles.parametres.note }}</p>
+                  }
+                </usine-panneau-cle>
+              }
+              @case ('anthropic') {
+                <usine-panneau-cle
+                  [ia]="ia"
+                  [retraitEnCours]="retraitEnCours()"
+                  (retirer)="demanderRetrait(ia)"
+                >
+                  @if (ia.dto.connectee) {
+                    <p class="phrase-courte">{{ libelles.parametres.note }}</p>
+                  }
+                </usine-panneau-cle>
+              }
+              @case ('autre') {
+                <usine-panneau-autre
+                  [ia]="ia"
+                  [retraitEnCours]="retraitEnCours()"
+                  (retirer)="demanderRetrait(ia)"
+                >
+                  @if (ia.dto.connectee) {
+                    <p class="phrase-courte">{{ libelles.parametres.note }}</p>
+                  }
+                </usine-panneau-autre>
+              }
+              @case ('ollama') {
+                <usine-panneau-ollama [ia]="ia">
+                  @if (ia.dto.connectee) {
+                    <p class="phrase-courte">{{ libelles.parametres.note }}</p>
+                  }
+                </usine-panneau-ollama>
+              }
+            }
+            @if (erreurRetrait()) {
+              <p class="erreur" role="alert">{{ erreurRetrait() }}</p>
+            }
+          </div>
+        }
+
+        @if (etat.pret) {
+          <a class="avances" routerLink="/parametres/avances">
+            <span class="textes">
+              <span class="nom-avances">{{ libelles.parametres.avances }}</span>
+              <span class="phrase-encadre">{{ libelles.parametres.avancesPhrase }}</span>
+            </span>
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m9 18 6-6-6-6" />
+            </svg>
+          </a>
+        }
+      }
+    </div>
+  </main>
+</usine-cadre>
+<usine-dialogue-confirmation
+  danger
+  [titre]="retrait()?.titre ?? ''"
+  [phrase]="retrait()?.phrase ?? ''"
+  [oui]="libelles.parametres.retrait.oui"
+  [non]="libelles.parametres.retrait.non"
+  [(ouvert)]="dialogue"
+  (reponse)="confirmerRetrait($event)"
+/>

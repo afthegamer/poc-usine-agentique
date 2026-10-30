@@ -1,0 +1,153 @@
+<section class="panneau autre" aria-labelledby="titre-panneau">
+  <div class="entete">
+    <h2 id="titre-panneau">{{ libelles.parametres.ias.autre.nom }}</h2>
+    <p class="phrase">{{ libelles.parametres.autre.etapes }}</p>
+  </div>
+
+  <fieldset class="etape-autre">
+    <legend class="etape">{{ libelles.parametres.autre.service }}</legend>
+    <div class="pilules">
+      @for (id of services; track id) {
+        <label class="pilule" [class.choisie]="id === service()">
+          <input
+            type="radio"
+            name="service"
+            [checked]="id === service()"
+            (change)="choisirService(id)"
+          />{{ libelles.parametres.services[id] }}
+        </label>
+      }
+    </div>
+    <p class="aide">{{ libelles.parametres.autre.connus }}</p>
+    @if (service() === 'adresse' && !aCle()) {
+      <label class="petite" for="adresse-autre">{{ libelles.parametres.autre.adresse }}</label>
+      <input
+        #adresse
+        id="adresse-autre"
+        type="url"
+        autocomplete="off"
+        spellcheck="false"
+        [value]="enregistre() === 'adresse' ? (ia().dto.adresse ?? '') : ''"
+        [attr.aria-invalid]="erreurAdresse() ? 'true' : null"
+        [attr.aria-describedby]="erreurAdresse() ? 'erreur-adresse-autre' : null"
+      />
+      @if (erreurAdresse()) {
+        <p id="erreur-adresse-autre" class="erreur" role="alert">{{ erreurAdresse() }}</p>
+      }
+    }
+  </fieldset>
+
+  <div class="etape-autre">
+    <h3 #titreCle tabindex="-1">{{ libelles.parametres.autre.cle(nomService()) }}</h3>
+    @if (aCle()) {
+      <p class="enregistree">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M20 6 9 17l-5-5" />
+        </svg>
+        {{ libelles.parametres.cleEnregistree }}
+      </p>
+      <p class="phrase">
+        {{
+          ia().dto.origine === 'poste' ? libelles.parametres.clePoste : libelles.parametres.chiffree
+        }}
+      </p>
+      <div class="liens">
+        <button type="button" usine-action-soulignee (click)="remplacer()">
+          {{ libelles.parametres.remplacer }}
+        </button>
+        @if (ia().dto.origine !== 'poste') {
+          <button
+            type="button"
+            usine-action-soulignee
+            danger
+            [disabled]="retraitEnCours()"
+            [attr.aria-busy]="retraitEnCours() || null"
+            [usineFocusApresAppel]="retraitEnCours()"
+            (click)="retirer.emit()"
+          >
+            {{ libelles.parametres.retirer }}
+          </button>
+        }
+      </div>
+    } @else {
+      <form class="cle-autre" novalidate (submit)="$event.preventDefault(); enregistrer(champ)">
+        <div class="champ-cle">
+          <label class="masque" for="cle-autre">{{
+            libelles.parametres.autre.etiquetteCle(nomService())
+          }}</label>
+          <input
+            #champ
+            id="cle-autre"
+            type="password"
+            autocomplete="off"
+            spellcheck="false"
+            [placeholder]="libelles.parametres.indicationCle"
+            [attr.aria-invalid]="erreurCle() ? 'true' : null"
+            [attr.aria-describedby]="erreurCle() ? 'erreur-cle' : null"
+          />
+          @if (erreurCle()) {
+            <p id="erreur-cle" class="erreur" role="alert">{{ erreurCle() }}</p>
+          }
+        </div>
+        <button
+          type="submit"
+          usine-bouton-plein
+          [disabled]="envoi()"
+          [attr.aria-busy]="envoi() || null"
+        >
+          {{ libelles.parametres.enregistrerCle }}
+        </button>
+        @if (remplacement()) {
+          <button type="button" usine-action-soulignee (click)="fermerSaisie()">
+            {{ libelles.parametres.annuler }}
+          </button>
+        }
+      </form>
+      <p class="aide">{{ libelles.parametres.autre.seraChiffree }}</p>
+    }
+  </div>
+
+  <div class="etape-autre etape-modele">
+    <label class="etape" for="modele-autre">{{ libelles.parametres.autre.modele }}</label>
+    @if (aCle()) {
+      <select
+        id="modele-autre"
+        [disabled]="choix.enCours() !== null"
+        [attr.aria-busy]="choix.enCours() !== null || null"
+        [usineFocusApresAppel]="choix.enCours() !== null"
+        (change)="choix.choisir(liste.value)"
+        #liste
+      >
+        <option value="" disabled [selected]="choix.choisi() === null">
+          {{ libelles.parametres.autre.choisir }}
+        </option>
+        @for (modele of modeles(); track modele.id) {
+          <option [value]="modele.id" [selected]="modele.id === choix.choisi()">
+            {{ modele.nom }}
+          </option>
+        }
+      </select>
+      @if (choix.erreur() || erreurModeles()) {
+        <p class="erreur" role="alert">{{ choix.erreur() || erreurModeles() }}</p>
+      }
+    } @else {
+      <select id="modele-autre" disabled aria-describedby="aide-modele-autre">
+        <option>{{ libelles.parametres.autre.sansCle }}</option>
+      </select>
+      <p id="aide-modele-autre" class="aide">
+        {{ libelles.parametres.autre.liste(nomService()) }}
+      </p>
+    }
+  </div>
+  <ng-content />
+</section>

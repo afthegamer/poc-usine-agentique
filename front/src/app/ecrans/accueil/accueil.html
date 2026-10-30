@@ -1,0 +1,34 @@
+<usine-disposition>
+  <h1 class="masque" usineCibleFocus="titre">{{ libelles.titres.accueil }}</h1>
+  <usine-message auteur="usine">
+    @if (sansIa()) {
+      <div class="sans-ia" role="status">
+        <p class="question">{{ libelles.accueil.sansIa.titre }}</p>
+        <p class="phrase">{{ libelles.accueil.sansIa.phrase }}</p>
+        <a usine-bouton-plein routerLink="/parametres">{{ libelles.accueil.sansIa.connecter }}</a>
+      </div>
+    } @else {
+      <p class="question">{{ libelles.accueil.question }}</p>
+      <p class="phrase">{{ libelles.accueil.aide }}</p>
+    }
+  </usine-message>
+  @if (passage(); as message) {
+    <p class="alerte" role="alert" [class.information]="information()">{{ message.texte }}</p>
+  }
+  <usine-zone-saisie
+    [etiquette]="libelles.accueil.etiquette"
+    [indication]="sansIa() ? libelles.accueil.sansIa.indication : libelles.accueil.indication"
+    [desactivee]="sansIa()"
+    [occupee]="occupe()"
+    [erreur]="erreur()"
+    [commandes]="commandes"
+    [texte]="texte()"
+    (texteChange)="saisir($event)"
+    (envoi)="commencer($event)"
+  />
+  <usine-panneau-projet
+    [titre]="libelles.titres.accueil"
+    [description]="libelles.accueil.panneau"
+    [etape]="sansIa() ? null : 0"
+  />
+</usine-disposition>

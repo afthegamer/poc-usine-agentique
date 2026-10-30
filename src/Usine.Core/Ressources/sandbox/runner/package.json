@@ -1,0 +1,12 @@
+{
+  "name": "usine-acceptance-runner",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "@playwright/test": "file:usine-test",
+    "@types/node": "24.19.1",
+    "pdfjs-dist": "6.3.289",
+    "playwright": "1.63.0",
+    "typescript": "6.0.3"
+  }
+}

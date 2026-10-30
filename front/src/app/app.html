@@ -1,0 +1,10 @@
+@if (acces.refuse()) {
+  <usine-acces-refuse />
+} @else {
+  @if (etat.connexion() === 'reconnexion') {
+    <usine-phrase-attente class="bandeau" attend>{{
+      libelles.connexionCoupee
+    }}</usine-phrase-attente>
+  }
+  <router-outlet />
+}

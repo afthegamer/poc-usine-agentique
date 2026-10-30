@@ -1,0 +1,1449 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "Usine.Tests | v1",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/sante": {
+      "get": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projets": {
+      "get": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjetDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/projets/{nom}/essai": {
+      "get": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "nom",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EssaiDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "nom",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/LancementEssaiDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EssaiDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "nom",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EssaiDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/demandes": {
+      "get": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DemandeDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LancementDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemandeDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/demandes/{id}": {
+      "get": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemandeDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/demandes/{id}/reponses": {
+      "post": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReponsesDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemandeDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/demandes/{id}/validation": {
+      "post": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemandeDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/demandes/{id}/annulation": {
+      "post": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemandeDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/demandes/{id}/reprise": {
+      "post": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemandeDetailDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/flux": {
+      "get": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/SseItemOfDemandeDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/discussions": {
+      "post": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/LancementDiscussionDto"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiscussionDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/discussions/{id}/messages": {
+      "post": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/api/discussions/{id}/flux": {
+      "get": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/SseItemOfstring"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/discussions/{id}/confirmation": {
+      "post": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmationDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/api/discussions/{id}": {
+      "delete": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/api/parametres": {
+      "get": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParametresDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/parametres/cles/{ia}": {
+      "put": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "ia",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CleDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParametresDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "parameters": [
+          {
+            "name": "ia",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParametresDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/parametres/choix": {
+      "put": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChoixDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParametresDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/parametres/autre/modeles": {
+      "get": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ModeleDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/parametres/roles": {
+      "put": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolesDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParametresDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/parametres/ollama": {
+      "put": {
+        "tags": [
+          "Usine.Tests"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OllamaDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParametresDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BacklogDto": {
+        "required": [
+          "titre",
+          "stories"
+        ],
+        "type": "object",
+        "properties": {
+          "titre": {
+            "type": "string"
+          },
+          "stories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StoryDto"
+            }
+          }
+        }
+      },
+      "BesoinDto": {
+        "required": [
+          "titre",
+          "resume"
+        ],
+        "type": "object",
+        "properties": {
+          "titre": {
+            "type": "string"
+          },
+          "resume": {
+            "type": "string"
+          }
+        }
+      },
+      "ChoixDto": {
+        "required": [
+          "ia",
+          "modele"
+        ],
+        "type": "object",
+        "properties": {
+          "ia": {
+            "type": "string"
+          },
+          "modele": {
+            "type": "string"
+          }
+        }
+      },
+      "CleDto": {
+        "required": [
+          "cle"
+        ],
+        "type": "object",
+        "properties": {
+          "cle": {
+            "type": "string"
+          },
+          "service": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "adresse": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "ConfirmationDto": {
+        "required": [
+          "accord"
+        ],
+        "type": "object",
+        "properties": {
+          "accord": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CritereDto": {
+        "required": [
+          "id",
+          "texte"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "texte": {
+            "type": "string"
+          }
+        }
+      },
+      "DemandeDetailDto": {
+        "required": [
+          "id",
+          "titre",
+          "texte",
+          "projet",
+          "creeLe",
+          "misAJourLe",
+          "statut",
+          "etape",
+          "etapeAffichee",
+          "sousEtapeFabrication",
+          "attente",
+          "questions",
+          "besoin",
+          "backlog",
+          "evenementsDemandeur",
+          "livraison",
+          "remarquesQa",
+          "erreur"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "titre": {
+            "type": "string"
+          },
+          "texte": {
+            "type": "string"
+          },
+          "projet": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "creeLe": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "misAJourLe": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "statut": {
+            "type": "string"
+          },
+          "etape": {
+            "type": "string"
+          },
+          "etapeAffichee": {
+            "type": "string"
+          },
+          "sousEtapeFabrication": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "attente": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "besoin": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/BesoinDto"
+              }
+            ]
+          },
+          "backlog": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/BacklogDto"
+              }
+            ]
+          },
+          "evenementsDemandeur": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EvenementDto"
+            }
+          },
+          "livraison": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/LivraisonDto"
+              }
+            ]
+          },
+          "remarquesQa": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "erreur": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "DemandeDto": {
+        "required": [
+          "id",
+          "titre",
+          "projet",
+          "statut",
+          "etape",
+          "etapeAffichee",
+          "attente",
+          "misAJourLe"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "titre": {
+            "type": "string"
+          },
+          "projet": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "statut": {
+            "type": "string"
+          },
+          "etape": {
+            "type": "string"
+          },
+          "etapeAffichee": {
+            "type": "string"
+          },
+          "attente": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "misAJourLe": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DiscussionDto": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "EssaiDto": {
+        "required": [
+          "enCours",
+          "adresse"
+        ],
+        "type": "object",
+        "properties": {
+          "enCours": {
+            "type": "boolean"
+          },
+          "adresse": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "EvenementDto": {
+        "required": [
+          "date",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "IaDto": {
+        "required": [
+          "id",
+          "connectee",
+          "origine",
+          "modele",
+          "modeles",
+          "service",
+          "adresse"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "connectee": {
+            "type": "boolean"
+          },
+          "origine": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "modele": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "modeles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModeleDto"
+            }
+          },
+          "service": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "adresse": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "LancementDiscussionDto": {
+        "type": "object",
+        "properties": {
+          "projet": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "demande": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "LancementDto": {
+        "required": [
+          "texte"
+        ],
+        "type": "object",
+        "properties": {
+          "texte": {
+            "type": "string"
+          },
+          "projet": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "titre": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "LancementEssaiDto": {
+        "type": "object",
+        "properties": {
+          "port": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "null",
+              "integer",
+              "string"
+            ],
+            "format": "int32"
+          }
+        }
+      },
+      "LivraisonDto": {
+        "required": [
+          "succes",
+          "publie"
+        ],
+        "type": "object",
+        "properties": {
+          "succes": {
+            "type": "boolean"
+          },
+          "publie": {
+            "type": "boolean"
+          }
+        }
+      },
+      "MessageDto": {
+        "required": [
+          "texte"
+        ],
+        "type": "object",
+        "properties": {
+          "texte": {
+            "type": "string"
+          }
+        }
+      },
+      "ModeleDto": {
+        "required": [
+          "id",
+          "nom",
+          "prepare",
+          "parDefaut"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "nom": {
+            "type": "string"
+          },
+          "prepare": {
+            "type": [
+              "null",
+              "boolean"
+            ]
+          },
+          "parDefaut": {
+            "type": "boolean"
+          }
+        }
+      },
+      "OllamaDto": {
+        "required": [
+          "adresse"
+        ],
+        "type": "object",
+        "properties": {
+          "adresse": {
+            "type": "string"
+          }
+        }
+      },
+      "ParametresDto": {
+        "required": [
+          "pret",
+          "ia",
+          "ias",
+          "roles"
+        ],
+        "type": "object",
+        "properties": {
+          "pret": {
+            "type": "boolean"
+          },
+          "ia": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "ias": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IaDto"
+            }
+          },
+          "roles": {
+            "$ref": "#/components/schemas/RolesDto"
+          }
+        }
+      },
+      "ProjetDto": {
+        "required": [
+          "nom",
+          "titre",
+          "derniereMiseAJour"
+        ],
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string"
+          },
+          "titre": {
+            "type": "string"
+          },
+          "derniereMiseAJour": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "RemarqueDto": {
+        "required": [
+          "reference",
+          "texte"
+        ],
+        "type": "object",
+        "properties": {
+          "reference": {
+            "type": "string"
+          },
+          "texte": {
+            "type": "string"
+          }
+        }
+      },
+      "ReponsesDto": {
+        "required": [
+          "reponses"
+        ],
+        "type": "object",
+        "properties": {
+          "reponses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "RolesDto": {
+        "required": [
+          "po",
+          "qaAmont",
+          "dev",
+          "qa"
+        ],
+        "type": "object",
+        "properties": {
+          "po": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ChoixDto"
+              }
+            ]
+          },
+          "qaAmont": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ChoixDto"
+              }
+            ]
+          },
+          "dev": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ChoixDto"
+              }
+            ]
+          },
+          "qa": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ChoixDto"
+              }
+            ]
+          }
+        }
+      },
+      "SseItemOfDemandeDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DemandeDto"
+          },
+          "eventType": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "eventId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "reconnectionInterval": {
+            "pattern": "^-?(\\d+\\.)?\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,7})?$",
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "SseItemOfstring": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "eventType": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "eventId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "reconnectionInterval": {
+            "pattern": "^-?(\\d+\\.)?\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,7})?$",
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "StoryDto": {
+        "required": [
+          "id",
+          "titre",
+          "description",
+          "criteres"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "titre": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "criteres": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CritereDto"
+            }
+          }
+        }
+      },
+      "ValidationDto": {
+        "required": [
+          "etape",
+          "approuver"
+        ],
+        "type": "object",
+        "properties": {
+          "etape": {
+            "type": "string"
+          },
+          "approuver": {
+            "type": "boolean"
+          },
+          "remarques": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/RemarqueDto"
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Usine.Tests"
+    }
+  ]
+}

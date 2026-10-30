@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>usine</AssemblyName>
+    <RootNamespace>Usine.Cli</RootNamespace>
+    <UserSecretsId>777911a0-d1b6-4cee-a2da-68089d8246a0</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Usine.Core\Usine.Core.csproj" />
+    <ProjectReference Include="..\Usine.Mcp\Usine.Mcp.csproj" />
+    <ProjectReference Include="..\Usine.Api\Usine.Api.csproj" />
+  </ItemGroup>
+
+</Project>
